@@ -173,7 +173,7 @@ footer {font-family: Droid;}
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	    <h4 class="modal-title">إنخرط في حزب القراصنة</label>
       </div>
-      <div class="modal-body">
+      <div id="modal_enroll_body" class="modal-body">
 <p dir="rtl">
 الانخراط في حزب القراصنة مجاني. سجل بريدك الالكتروني و انتضر ايميل من عندنا لتأكيد العنوان
 </p>
@@ -187,9 +187,6 @@ footer {font-family: Droid;}
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
 		  </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">بطّلت</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -215,8 +212,8 @@ $('#btn_ml').click(function (e) {
 			via_subrequest: 1,
 			email: $('#email').val()
 		},
-		success: function (data,status,xhr) {
-			$('#modal_enroll > .modal-body').html('<div class="alert alert-success" role="alert">سجلناك</div>');
+		complete: function (data,status,xhr) {
+			$('#modal_enroll_body').html('<div class="alert alert-success" role="alert" dir="rtl">سجلناك! تفقد الميل بش يجيك رابط لتأكيد العنوان</div>');
 		}
 	});
 });
