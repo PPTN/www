@@ -200,7 +200,7 @@ $('.btn_enroll').click(function (e) {
 });
 $('#btn_ml').click(function (e) {
 	//https://lists.riseup.net/www/subscribe/pptn-social
-	$.ajax('https://lists.riseup.net/www', {
+	$.ajax('./inscription/', {
 		method:'POST',
 		data: {
 			list: "pptn-social",
