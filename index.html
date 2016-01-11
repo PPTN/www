@@ -201,18 +201,36 @@ $('.btn_enroll').click(function (e) {
 });
 $('#btn_ml').click(function (e) {
 	//https://lists.riseup.net/www/subscribe/pptn-social
-	$.ajax('./inscription/', {
-		method:'POST',
-		data: {
-			list: "pptn-social",
-			action: "subrequest",
-			via_subrequest: 1,
-			email: $('#email').val()
-		},
-		complete: function (data,status,xhr) {
-			$('#modal_enroll_body').html('<div class="alert alert-success" role="alert" dir="rtl">سجلناك! تفقد الميل بش يجيك رابط لتأكيد العنوان</div>');
+	var mail = $('#email').val();  
+	if (mail !== "") {  // If something was entered
+		if (!isValidEmailAddress(mail)) {
+			$('#modal_enroll_body').html('<div class="alert alert-danger" role="alert" dir="rtl">هنالك خطأ في البريد الإلكتروني ، نرجو التثبت في صحة المعطيات</div>');
+			$('#email').focus();
+			return false;  
 		}
-	});
+		else{
+			$.ajax('./inscription/', {
+				method:'POST',
+				data: {
+					list: "pptn-social",
+					action: "subrequest",
+					via_subrequest: 1,
+					email: $('#email').val()
+				},
+				complete: function (data,status,xhr) {
+					$('#modal_enroll_body').html('<div class="alert alert-success" role="alert" dir="rtl">سجلناك! تفقد الميل بش يجيك رابط لتأكيد العنوان</div>');
+				}
+			});
+		}
+	}else{
+		$('#modal_enroll_body').html('<div class="alert alert-danger" role="alert" dir="rtl">البريد الإلكتروني إجباري للتسجيل</div>');
+		$('#email').focus();
+	} 
+
+	function isValidEmailAddress(emailAddress) {
+		var pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i);
+		return pattern.test(emailAddress);
+	};
 });
 	</script>
   
