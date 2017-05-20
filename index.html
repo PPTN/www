@@ -11,7 +11,7 @@
     <link rel="icon" href="favicon.ico">
     <title>حزب القراصنة</title>
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/ppbe.css" rel="stylesheet">
     <script type="application/ld+json">
 	{
 	  "@context" : "http://schema.org",
@@ -29,7 +29,6 @@
 {display:none !important;}
 </style>
     <!-- Custom styles for this template -->
-    <link href="css/carousel.css" rel="stylesheet">
 <style>
 .navbar-right { height: inherit; }
 @font-face {
@@ -40,31 +39,34 @@
   font-family:'Droid';
   src:url('fonts/DroidKufi-Regular.ttf');
 }
-.carousel-caption { background-color: rgba(0,0,0, 0.5); border-radius: 4px; }
+.dark .carousel-caption { background-color: rgba(0,0,0, 0.5); border-radius: 4px; }
 .carousel-caption p { font: 200% Scheherazade; }
 .carousel-caption h1 { font: 350% Scheherazade; }
 #about p { font: 200% Scheherazade; text-align : justify;}
 #about ul { font: 200% Scheherazade; }
-#about h2 { font: 350% Scheherazade; }
+#about h1, h2 { font: 350% Scheherazade; }
+#about h3 { font: 150% Scheherazade; }
 nav {font-family: Droid;}
 footer {font-family: Droid;}
 .btn {font-family: Droid;}
 .modal-title {font-family: Droid;}
 .modal-body {font-family: Droid;}
 .dropdown-menu li a { text-align: right; }
+nav .btn_enroll { background: transparent; border-color: white; }
 </style>
 
   </head>
 <!-- NAVBAR
 ================================================== -->
   <body itemscope itemtype="http://schema.org/Organization">
-    <div class="navbar-wrapper">
+    <div id="main-nav" class="navbar-wrapper navbar navbar-inverse bs-docs-nav" style="min-height: 76px;">
+
       <div class="container">
 
         <nav class="navbar navbar-default navbar-static-top">
           <div class="container-fluid">
             <div class="navbar-header navbar-right">
-              	<a class="navbar-brand navbar-right" itemprop="url" href="#">
+              	<a class="navbar-brand" itemprop="url" href="#">
 			<img itemprop="logo" src="logo-ar.png" class="img-responsive" alt="Logo Parti Pirate Tunisie"/>
 		</a>
             </div>
@@ -103,33 +105,30 @@ footer {font-family: Droid;}
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img class="first-slide" src="1024px-PPI-2012-Prague-06.jpg" alt="PPI 2012 Prague">
-          <div class="container">
+          <img class="first-slide" src="manichmsame7.jpg" alt="مانيش مسامح" style="width:100%; bottom:150px">
+          <div class="container big-title-container">
             <div class="carousel-caption">
-              <h1>نحن قراصنة نحبو الحرية و ما عندناش رئيس</h1>
-				<p>حزب القراصنة أسس في 2006 في السويد و نشر في الرائد الرسمي التونسي في 2012. كل القرارات تؤخذ بتصويت الأعضاء عبر الانترنت و ما عندناش عروفات</p>
-              <p>
-			  <a class="btn btn-lg btn-danger btn_enroll" href="#" role="button">إنخرط مجّانًا</a>
-              <a class="btn btn-lg btn-success" href="pp-statuts.pdf" role="button">إقرأ النظام الأساسي</a></p>
+		<p><a class="btn custom-button green-btn" href="#" role="button">إنخرط مجّانًا</a>
+              <a class="btn custom-button green-btn" href="pp-statuts.pdf" role="button">إقرأ النظام الأساسي</a></p>
             </div>
           </div>
         </div>
-        <div class="item">
-          <img class="second-slide" src="ppzatlaballot.jpg" alt="انتخابات 2016">
-          <div class="container">
-            <div class="carousel-caption">
+        <div class="item dark">
+          <img class="second-slide" src="ppzatlaballot.jpg" alt="انتخابات 2017" style="float:right">
+          <div class="container big-title-container">
+            <div class="carousel-caption dark">
               <h1>حزب القراصنة يعتمد رمز الزطلة في الانتخابات</h1>
-              <p><a class="btn btn-lg btn-success" href="http://ppptn.blogspot.com/2015/12/blog-post.html" role="button">إقرء البلاغ الرسمي </a></p>
+              <p><a class="btn custom-button green-btn" href="http://ppptn.blogspot.com/2015/12/blog-post.html" role="button">إقرء البلاغ الرسمي </a></p>
             </div>
           </div>
         </div>
-        <div class="item">
+        <div class="item dark" style="background-color: #FFF100">
           <img class="third-slide" src="fkr.png" alt="الفكر مش ملك">
-          <div class="container">
+          <div class="container big-title-container">
             <div class="carousel-caption">
               <h1>الفكر مش ملك</h1>
               <p>حملة تونسيّة ضد سياسة الملكيّة الفكريّة</p>
-              <p><a class="btn btn-lg btn-success" href="http://fkr.pirate.tn" role="button">موقع الحملة</a></p>
+              <p><a class="btn custom-button green-btn" href="http://fkr.pirate.tn" role="button">موقع الحملة</a></p>
             </div>
           </div>
         </div>
@@ -153,7 +152,10 @@ footer {font-family: Droid;}
 
       <div class="row" id="about" dir="rtl">
       	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      		<h2>ما هو حزب القراصنة</h2>
+              <h1>نحن قراصنة نحبو الحرية و ما عندناش رئيس</h1>
+<h3>
+حزب القراصنة أسس في 2006 في السويد و نشر في الرائد الرسمي التونسي في 2012. كل القرارات تؤخذ بتصويت الأعضاء عبر الانترنت و ما عندناش عروفات
+</h3>
 		<p>
 يهدف حزب القراصنة إلى دعم الدّيمقراطيّة المباشرة ومبدأ الحوكمة المفتوحة لتفعيل مشاركة المواطن في اتّخاذ القرارات و الاعتماد على التّكنولوجيات الرّقميّة.
 		</p>
@@ -267,7 +269,12 @@ $('#btn_ml').click(function (e) {
 		return pattern.test(emailAddress);
 	};
 });
-	</script>
-  
+	
+
+$('.carousel').carousel({
+  interval: 50000
+})
+</script>
+
 
 </body></html>
