@@ -14167,7 +14167,6 @@ video::-webkit-media-controls {
     z-index: 5;
     -webkit-backface-visibility: hidden;
     overflow: hidden;
-    border-radius: 4px
     }
 .item-overlay {
     position: absolute;
