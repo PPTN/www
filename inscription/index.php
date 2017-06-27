@@ -131,7 +131,19 @@ nav .btn_enroll { background: transparent; border-color: white; }
 <label>
 البلديّة
 </label>
-    <input type="text" class="form-control" name="municipalite">
+    <input type="text" list="municipalites" class="form-control" name="municipalite">
+	<datalist id="municipalites">
+<?php
+	$DB = new PDO("sqlite:../municipalites.sqlite3");
+	$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$stmt = $DB->prepare("select * from municipalites");
+	$stmt->execute();
+	while ($m = $stmt->fetch()) {
+		print "<option>".$m['municipalite_ar']."</option>";
+		print "<option>".$m['municipalite_fr']."</option>";
+	}
+?>
+	</datalist>
 </div>
 
 <div class="radio" dir="ltr">
@@ -209,7 +221,7 @@ $('.carousel').carousel({
 </body></html>
 <?php
 	if (! $_POST) die();
-	$DB = new PDO("sqlite:db.sqlite3");
+	$DB = new PDO("sqlite:../inscription.sqlite3");
 	$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 	$stmt = $DB->prepare("insert into contacts (nom,email,tel,age,sexe,municipalite,inscri,date) values (:nom,:email,:tel,:age,:sexe,:municipalite,:inscri,:date)");
