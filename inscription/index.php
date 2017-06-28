@@ -50,6 +50,7 @@ form {font-family: Droid;}
 nav {font-family: Droid;}
 footer {font-family: Droid;}
 .btn {font-family: Droid;}
+.alert {font-family: Droid;}
 .modal-title {font-family: Droid;}
 .modal-body {font-family: Droid;}
 .dropdown-menu li a { text-align: right; }
@@ -67,24 +68,13 @@ nav .btn_enroll { background: transparent; border-color: white; }
         <nav class="navbar navbar-default navbar-static-top">
           <div class="container-fluid">
             <div class="navbar-header navbar-right">
-              	<a class="navbar-brand" itemprop="url" href="#">
+              	<a class="navbar-brand" itemprop="url" href="http://partipirate.tn">
 			<img itemprop="logo" src="../logo-ar.png" class="img-responsive" alt="Logo Parti Pirate Tunisie"/>
 		</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="#about">من نحن</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">مواقفنا<span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="http://fkr.pirate.tn">الفكر مش ملك</a></li>
-                    <li><a href="http://ppptn.blogspot.com/2014/05/404.html">حيادية الانترنت</a></li>
-                    <li><a href="http://ppptn.blogspot.com/2015/12/blog-post.html">قانون الزطلة</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="http://ppptn.blogspot.com">بلاغات حزب القراصنة</a></li>
-                  </ul>
-                </li>
-                <li><a itemprop="email" href="mailto:PartiPirate.tn<pptn-social@lists.riseup.net>"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> إتصل بنا</a></li>
+                <li><a href="http://partipirate.tn">الصفحة الرّئيسية</a></li>
               </ul>
             </div>
           </div>
@@ -93,15 +83,47 @@ nav .btn_enroll { background: transparent; border-color: white; }
       </div>
     </div>
 	<div class="container-fluid" style="margin-top:90px" dir="rtl">
-
-
 <form class="col-md-offset-4 col-md-4" method="post" action=".">
+<?php	
+function array2ini($data) {
+	$m = "";
+	foreach ($data as $k=>$v) { 
+		$m .= $k.': '.$v."\n"; 
+	}
+	return $m;
+}
+
+	if ($_POST) {
+		$DB = new PDO("sqlite:../inscription.sqlite3");
+		$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+		$stmt = $DB->prepare("insert into contacts (nom,email,tel,age,sexe,municipalite,inscri,date) values (:nom,:email,:tel,:age,:sexe,:municipalite,:inscri,:date)");
+		$stmt->bindValue(':nom',$_POST['nom']);
+		$stmt->bindValue(':email',$_POST['email']);
+		$stmt->bindValue(':tel',$_POST['tel']);
+		$stmt->bindValue(':age',$_POST['age']);
+		$stmt->bindValue(':sexe',$_POST['sexe']);
+		$stmt->bindValue(':municipalite',$_POST['municipalite']);
+		$stmt->bindValue(':inscri',$_POST['inscri']);
+		$stmt->bindValue(':date',date('c'));
+		$stmt->execute();
+		$message = array2ini($_POST);
+		$usermail = $_POST['email'];
+		$username = $_POST['nom'];
+		mail("slim@localhost","Nouveau Pirate",$message,"From: PPTN Inscription <parti@pirate.tn>\r\nReply-to: $username <$usermail>");
+		print '<div class="alert alert-success" role="alert">سجّلناك! تفقّد الميل، بش يجيك رابط لتأكيد العنوان <a class="btn btn-default" href="http://partipirate.tn">أرجع للصفحة الرّئيسية</a></div>';
+	} else { 
+?>
+
+
+<div id="about">
 <h2>
-رشّح روحك
+مرحبا بك في حزب القراصنة
 </h2>
 <p>
-مرحبا بك في حزب القراصنة. أدخل المعلومات بالعربي و الا بالسوري. كيف ما يساعدك. المعطيات هذه بش تخول لنا نشبكوك مع مواطنين آخرين في منطقتك
+أدخل المعلومات بالعربي و الا بالسوري. كيف ما يساعدك. المعطيات هذه بش تخول لنا نشبكوك مع مواطنين آخرين في منطقتك
 </p>
+</div>
 <div class="form-group">
 <label>
 الأسم و اللقب
@@ -164,85 +186,18 @@ nav .btn_enroll { background: transparent; border-color: white; }
       <input type="checkbox" name="inscri"> انتخبت في 2011 او 2014
     </label>
   </div>
+<p>
   <button type="submit" class="btn btn-success">سجّل</button>
+  <a class="btn btn-default" href="http://partipirate.tn">أرجع للصفحة الرّئيسية</a>
+</p>
 </form>
+<?php } // no _POST ?>
+
    </div><!-- /.container -->
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../js/jquery.js"></script>
     <script src="../js/bootstrap.js"></script>
-	<script>
-
-$('.btn_enroll').click(function (e) {
-	$('#modal_enroll').modal('show');
-});
-$('#btn_ml').click(function (e) {
-	//https://lists.riseup.net/www/subscribe/pptn-social
-	var mail = $('#email').val();  
-	if (mail !== "") {  // If something was entered
-		if (!isValidEmailAddress(mail)) {
-			$('#modal_enroll_body').html('<div class="alert alert-danger" role="alert" dir="rtl">هنالك خطأ في البريد الإلكتروني ، نرجو التثبت في صحة المعطيات</div>');
-			$('#email').focus();
-			return false;  
-		}
-		else{
-			$.ajax('./inscription/', {
-				method:'POST',
-				data: {
-					list: "pptn-social",
-					action: "subrequest",
-					via_subrequest: 1,
-					email: $('#email').val()
-				},
-				complete: function (data,status,xhr) {
-					$('#modal_enroll_body').html('<div class="alert alert-success" role="alert" dir="rtl">سجلناك! تفقد الميل بش يجيك رابط لتأكيد العنوان</div>');
-				}
-			});
-		}
-	}else{
-		$('#modal_enroll_body').html('<div class="alert alert-danger" role="alert" dir="rtl">البريد الإلكتروني إجباري للتسجيل</div>');
-		$('#email').focus();
-	} 
-
-	function isValidEmailAddress(emailAddress) {
-		var pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i);
-		return pattern.test(emailAddress);
-	};
-});
-	
-
-$('.carousel').carousel({
-  interval: 500000
-})
-</script>
-
 
 </body></html>
-<?php
-	if (! $_POST) die();
-	$DB = new PDO("sqlite:../inscription.sqlite3");
-	$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	$stmt = $DB->prepare("insert into contacts (nom,email,tel,age,sexe,municipalite,inscri,date) values (:nom,:email,:tel,:age,:sexe,:municipalite,:inscri,:date)");
-	$stmt->bindValue(':nom',$_POST['nom']);
-	$stmt->bindValue(':email',$_POST['email']);
-	$stmt->bindValue(':tel',$_POST['tel']);
-	$stmt->bindValue(':age',$_POST['age']);
-	$stmt->bindValue(':sexe',$_POST['sexe']);
-	$stmt->bindValue(':municipalite',$_POST['municipalite']);
-	$stmt->bindValue(':inscri',$_POST['inscri']);
-	$stmt->bindValue(':date',date('c'));
-	$stmt->execute();
-
-    $HTTP_RAW_POST_DATA = file_get_contents("php://input");
-
-    $ch = curl_init("https://lists.riseup.net/www");
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $HTTP_RAW_POST_DATA);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $result = curl_exec($ch);
-
-    if ($result === FALSE) die("Err proxy_forward() - ". curl_error($ch));
-    curl_close($ch);
-	return $result;
