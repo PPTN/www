@@ -1,3 +1,4 @@
+<?php header("Access-Control-Allow-Origin: http://parti.pirate.tn"); // pour les Fonts ?>
 <!DOCTYPE html>
 <html lang="ar">
 <head>
