@@ -128,25 +128,25 @@ function array2ini($data) {
 <label>
 الأسم و اللقب
 </label>
-    <input type="text" class="form-control" name="nom" placeholder="خير الدين بربروس">
+    <input type="text" class="form-control" name="nom">
 </div>
 <div class="form-group">
 <label>
 البريد الالكتروني
 </label>
-    <input type="email" class="form-control" name="email" placeholder="barberousse@caramail.com" dir="ltr">
+    <input type="email" class="form-control" name="email" dir="ltr">
 </div>
 <div class="form-group">
 <label>
 رقم الهاتف الجوال
 </label>
-    <input type="text" class="form-control" name="tel" placeholder="98031337">
+    <input type="text" class="form-control" name="tel">
 </div>
 <div class="form-group">
 <label>
 العمر
 </label>
-    <input type="text" class="form-control" name="age" placeholder="18">
+    <input type="text" class="form-control" name="age">
 </div>
 
 <div class="form-group">
@@ -170,7 +170,7 @@ function array2ini($data) {
 
 <div class="radio" dir="ltr">
   <label>
-    <input type="radio" name="sexe" value="femme" checked>
+    <input type="radio" name="sexe" value="femme">
     انثى
   </label>
 </div>
@@ -180,12 +180,15 @@ function array2ini($data) {
     ذكر
   </label>
 </div>
+<p>
+انتخبت في 2011 او 2014
+<br />
 
-  <div class="checkbox" dir="ltr">
-    <label>
-      <input type="checkbox" name="inscri"> انتخبت في 2011 او 2014
-    </label>
-  </div>
+    <input type="radio" name="inscri" value="oui">
+    نعم
+    <input type="radio" name="inscri" value="non">
+    لا
+</p>
 <p>
   <button type="submit" class="btn btn-success">سجّل</button>
   <a class="btn btn-default" href="http://partipirate.tn">أرجع للصفحة الرّئيسية</a>
