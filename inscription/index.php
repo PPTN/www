@@ -1,4 +1,19 @@
-<?php header("Access-Control-Allow-Origin: http://parti.pirate.tn"); // pour les Fonts ?>
+<?php
+
+function array2ini($data) {
+	$m = "";
+	foreach ($data as $k=>$v) {
+		$m .= $k.': '.$v."\n";
+	}
+	return $m;
+}
+
+include("../config.php");
+
+header("Access-Control-Allow-Origin: http://$subdomain");
+ // pour les Fonts
+
+ ?>
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -69,13 +84,13 @@ nav .btn_enroll { background: transparent; border-color: white; }
         <nav class="navbar navbar-default navbar-static-top">
           <div class="container-fluid">
             <div class="navbar-header navbar-right">
-              	<a class="navbar-brand" itemprop="url" href="http://partipirate.tn">
+              	<a class="navbar-brand" itemprop="url" href="<?php echo $site_url;?>">
 			<img itemprop="logo" src="../logo-ar.png" class="img-responsive" alt="Logo Parti Pirate Tunisie"/>
 		</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="http://partipirate.tn">الصفحة الرّئيسية</a></li>
+                <li><a href="<?php echo $site_url ;?>">الصفحة الرّئيسية</a></li>
               </ul>
             </div>
           </div>
@@ -85,17 +100,16 @@ nav .btn_enroll { background: transparent; border-color: white; }
     </div>
 	<div class="container-fluid" style="margin-top:90px" dir="rtl">
 <form class="col-md-offset-4 col-md-4" method="post" action=".">
-<?php	
-function array2ini($data) {
-	$m = "";
-	foreach ($data as $k=>$v) { 
-		$m .= $k.': '.$v."\n"; 
-	}
-	return $m;
-}
+<?php
 
-	if ($_POST) {
-		$DB = new PDO("sqlite:../inscription.sqlite3");
+	if (isset($_POST['nom'])
+  and isset($_POST['email'])
+  and isset($_POST['municipalite'])
+  and isset($_POST['inscri'])
+  )
+    {
+
+		$DB = new PDO("sqlite:../$db_inscription");
 		$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		$stmt = $DB->prepare("insert into contacts (nom,email,tel,age,sexe,municipalite,inscri,date) values (:nom,:email,:tel,:age,:sexe,:municipalite,:inscri,:date)");
@@ -112,8 +126,8 @@ function array2ini($data) {
 		$usermail = $_POST['email'];
 		$username = $_POST['nom'];
 		mail("slim@localhost","Nouveau Pirate",$message,"From: PPTN Inscription <parti@pirate.tn>\r\nReply-to: $username <$usermail>");
-		print '<div class="alert alert-success" role="alert">سجّلناك! تفقّد الميل، بش يجيك رابط لتأكيد العنوان <a class="btn btn-default" href="http://partipirate.tn">أرجع للصفحة الرّئيسية</a></div>';
-	} else { 
+		print '<div class="alert alert-success" role="alert">سجّلناك! تفقّد الميل، بش يجيك رابط لتأكيد العنوان <a class="btn btn-default" href="<?php echo $site_url ;?>">أرجع للصفحة الرّئيسية</a></div>';
+	} else {
 ?>
 
 
@@ -157,7 +171,7 @@ function array2ini($data) {
     <input type="text" list="municipalites" class="form-control" name="municipalite">
 	<datalist id="municipalites">
 <?php
-	$DB = new PDO("sqlite:../municipalites.sqlite3");
+	$DB = new PDO("sqlite:../$db_municipalites");
 	$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$stmt = $DB->prepare("select * from municipalites");
 	$stmt->execute();
@@ -192,7 +206,7 @@ function array2ini($data) {
 </p>
 <p>
   <button type="submit" class="btn btn-success">سجّل</button>
-  <a class="btn btn-default" href="http://partipirate.tn">أرجع للصفحة الرّئيسية</a>
+  <a class="btn btn-default" href="<?php echo $site_url ;?>">أرجع للصفحة الرّئيسية</a>
 </p>
 </form>
 <?php } // no _POST ?>
